@@ -14,7 +14,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        score_Lbl.text = "Score: \(score)"
+        mode = "easy"
+        
+        score_Lbl.text = "Score: \(score) / \(turn)"
         
         // Declaring the math problem types to the array
         funcTypes = ["Add", "Sub", "Mult", "Div"]
@@ -29,11 +31,24 @@ class ViewController: UIViewController {
         
         choices = [0, 0, 0]
         
+        num1 = 0
+        num2 = 0
+        ans = 0
+        
         if (funcTypes[getFuncType] == "Add") {
             
-            num1 = Int.random(in: 0..<100)
-            num2 = Int.random(in: 0..<100)
-            ans = num1 + num2
+            if (mode == "easy") {
+                
+                num1 = Int.random(in: 0..<11)
+                num2 = Int.random(in: 0..<11)
+                ans = num1 + num2
+            }
+            else if (mode == "hard") {
+                
+                num1 = Int.random(in: 0..<100)
+                num2 = Int.random(in: 0..<100)
+                ans = num1 + num2
+            }
             
             mathProb_Lbl.text = "\(num1) + \(num2)"
             
@@ -47,11 +62,26 @@ class ViewController: UIViewController {
                 
                 if (i != ansInChoices) {
                     
-                   choices[i] = Int.random(in: 0..<198)
+                    if (mode == "easy") {
+                        
+                        choices[i] = Int.random(in: 0..<21)
+                    }
+                    else if (mode == "hard") {
+                        
+                        choices[i] = Int.random(in: 0..<198)
+                    }
                     
                     while (choices[i] == ans) {
                         
-                        choices[i] = Int.random(in: 0..<198)
+                        if (mode == "easy") {
+                            
+                            choices[i] = Int.random(in: 0..<21)
+                        }
+                        else if (mode == "hard") {
+                            
+                            choices[i] = Int.random(in: 0..<198)
+                        }
+
                     }
                 }
                 
@@ -64,12 +94,30 @@ class ViewController: UIViewController {
         }
         else if (funcTypes[getFuncType] == "Sub") {
             
-            num1 = Int.random(in: 0..<100)
-            num2 = Int.random(in: 0..<100)
+            if (mode == "easy") {
+                
+                num1 = Int.random(in: 0..<11)
+                num2 = Int.random(in: 0..<11)
+                ans = num1 + num2
+            }
+            else if (mode == "hard") {
+                
+                num1 = Int.random(in: 0..<100)
+                num2 = Int.random(in: 0..<100)
+                ans = num1 + num2
+            }
             
             while (num2 > num1) {
                 
-                num2 = Int.random(in: 0..<100)
+                if (mode == "easy") {
+                    
+                    num2 = Int.random(in: 0..<21)
+                }
+                else if (mode == "hard") {
+                    
+                    num2 = Int.random(in: 0..<100)
+                }
+                
             }
             
             ans = num1 - num2
@@ -86,11 +134,25 @@ class ViewController: UIViewController {
                 
                 if (i != ansInChoices) {
                     
-                    choices[i] = Int.random(in: 0..<100)
+                    if (mode == "easy") {
+                        
+                        choices[i] = Int.random(in: 0..<21)
+                    }
+                    else if (mode == "hard") {
+                        
+                        choices[i] = Int.random(in: 0..<100)
+                    }
                     
                     while (choices[i] == ans) {
                         
-                        choices[i] = Int.random(in: 0..<100)
+                        if (mode == "easy") {
+                            
+                            choices[i] = Int.random(in: 0..<21)
+                        }
+                        else if (mode == "hard") {
+                            
+                            choices[i] = Int.random(in: 0..<100)
+                        }
                     }
                 }
                 
@@ -103,9 +165,18 @@ class ViewController: UIViewController {
         }
         else if (funcTypes[getFuncType] == "Mult") {
             
-            num1 = Int.random(in: 0..<13)
-            num2 = Int.random(in: 0..<13)
-            ans = num1 * num2
+            if (mode == "easy") {
+                
+                num1 = Int.random(in: 0..<13)
+                num2 = Int.random(in: 0..<13)
+                ans = num1 * num2
+            }
+            else if (mode == "hard") {
+                
+                num1 = Int.random(in: 0..<100)
+                num2 = Int.random(in: 0..<100)
+                ans = num1 * num2
+            }
             
             mathProb_Lbl.text = "\(num1) * \(num2)"
             
@@ -119,11 +190,25 @@ class ViewController: UIViewController {
                 
                 if (i != ansInChoices) {
                     
-                    choices[i] = Int.random(in: 0..<145)
+                    if (mode == "easy") {
+                        
+                        choices[i] = Int.random(in: 0..<145)
+                    }
+                    else if (mode == "hard") {
+                        
+                        choices[i] = Int.random(in: 0..<9802)
+                    }
                     
                     while (choices[i] == ans) {
                         
-                        choices[i] = Int.random(in: 0..<145)
+                        if (mode == "easy") {
+                            
+                            choices[i] = Int.random(in: 0..<145)
+                        }
+                        else if (mode == "hard") {
+                            
+                            choices[i] = Int.random(in: 0..<9802)
+                        }
                     }
                 }
                 
@@ -173,7 +258,10 @@ class ViewController: UIViewController {
         
     }
 
+    var mode = ""
+    
     var score = 0
+    var turn = 0
     
     // An empty array for the math problem type
     var funcTypes = [String]()
@@ -207,10 +295,12 @@ class ViewController: UIViewController {
         if (choices[0] == ans) {
             
             score = score + 1
+            turn = turn + 1
             
-            score_Lbl.text = "Score: \(score)"
+            score_Lbl.text = "Score: \(score) / \(turn)"
             
-            msg_Lbl.text = ""
+            msg_Lbl.textColor = UIColor.blue
+            msg_Lbl.text = "That's correct!"
             
             getFuncType = Int.random(in: 0..<3)
             
@@ -218,7 +308,16 @@ class ViewController: UIViewController {
         }
         else {
             
-            msg_Lbl.text = "Wrong answer! Try again.."
+            msg_Lbl.textColor = UIColor.red
+            msg_Lbl.text = "Wrong answer!"
+            
+            turn = turn + 1
+            
+            score_Lbl.text = "Score: \(score) / \(turn)"
+            
+            getFuncType = Int.random(in: 0..<3)
+            
+            getMathProb(pointer: getFuncType)
         }
     }
     
@@ -227,10 +326,12 @@ class ViewController: UIViewController {
         if (choices[1] == ans) {
             
             score = score + 1
+            turn = turn + 1
             
-            score_Lbl.text = "Score: \(score)"
+            score_Lbl.text = "Score: \(score) / \(turn)"
             
-            msg_Lbl.text = ""
+            msg_Lbl.textColor = UIColor.blue
+            msg_Lbl.text = "That's correct!"
             
             getFuncType = Int.random(in: 0..<3)
             
@@ -238,7 +339,16 @@ class ViewController: UIViewController {
         }
         else {
             
-            msg_Lbl.text = "Wrong answer! Try again.."
+            msg_Lbl.textColor = UIColor.red
+            msg_Lbl.text = "Wrong answer!"
+            
+            turn = turn + 1
+            
+            score_Lbl.text = "Score: \(score) / \(turn)"
+            
+            getFuncType = Int.random(in: 0..<3)
+            
+            getMathProb(pointer: getFuncType)
         }
     }
     
@@ -247,10 +357,12 @@ class ViewController: UIViewController {
         if (choices[2] == ans) {
             
             score = score + 1
+            turn = turn + 1
             
-            score_Lbl.text = "Score: \(score)"
+            score_Lbl.text = "Score: \(score) / \(turn)"
             
-            msg_Lbl.text = ""
+            msg_Lbl.textColor = UIColor.blue
+            msg_Lbl.text = "That's correct!"
             
             getFuncType = Int.random(in: 0..<3)
             
@@ -258,13 +370,27 @@ class ViewController: UIViewController {
         }
         else {
             
-            msg_Lbl.text = "Wrong answer! Try again.."
+            msg_Lbl.textColor = UIColor.red
+            msg_Lbl.text = "Wrong answer!"
+            
+            turn = turn + 1
+            
+            score_Lbl.text = "Score: \(score) / \(turn)"
+            
+            getFuncType = Int.random(in: 0..<3)
+            
+            getMathProb(pointer: getFuncType)
         }
     }
     
     @IBAction func newProb_btn(_ sender: Any) {
         
-        msg_Lbl.text = ""
+        turn = turn + 1
+        
+        score_Lbl.text = "Score: \(score) / \(turn)"
+        
+        msg_Lbl.textColor = UIColor.black
+        msg_Lbl.text = "New problem generated..."
         
         getFuncType = Int.random(in: 0..<3)
         
@@ -272,18 +398,58 @@ class ViewController: UIViewController {
         
     }
     
+    /**
     @IBAction func resetScore_btn(_ sender: Any) {
         
         score = 0
+        turn = 0
         
-        score_Lbl.text = "Score: \(score)"
+        score_Lbl.text = "Score: \(score) / \(turn)"
         
+        msg_Lbl.textColor = UIColor.red
         msg_Lbl.text = ""
         
         getFuncType = Int.random(in: 0..<3)
         
         getMathProb(pointer: getFuncType)
     }
+    **/
+    
+    @IBAction func easyMode_btn(_ sender: Any) {
+        
+        mode = "easy"
+        
+        score = 0
+        turn = 0
+        
+        score_Lbl.text = "Score: \(score) / \(turn)"
+        
+        msg_Lbl.textColor = UIColor.red
+        msg_Lbl.text = ""
+        
+        getFuncType = Int.random(in: 0..<3)
+        
+        getMathProb(pointer: getFuncType)
+        
+    }
+    
+    @IBAction func hardMode_btn(_ sender: Any) {
+        
+        mode = "hard"
+        
+        score = 0
+        turn = 0
+        
+        score_Lbl.text = "Score: \(score) / \(turn)"
+        
+        msg_Lbl.textColor = UIColor.red
+        msg_Lbl.text = ""
+        
+        getFuncType = Int.random(in: 0..<3)
+        
+        getMathProb(pointer: getFuncType)
+        
+    }
+    
     
 }
-
